@@ -1,10 +1,13 @@
 package com.example.app_littlechef.Adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.app_littlechef.APP_LittleChefApplication
 import com.example.app_littlechef.databinding.ViewRecipeItemBinding
 import com.example.app_littlechef.retrofit.Recipe
+import com.example.app_littlechef.APP_LittleChefApplication.Companion.prefs
 import com.example.app_littlechef.retrofit.RecipesResponse
 import com.squareup.picasso.Picasso
 
@@ -57,6 +60,16 @@ class ViewHolder(private val binding: ViewRecipeItemBinding) :
         binding.calories.setText("${recipeData.caloriesPerServing} Kcal")
         binding.recipeName.setText(recipeData.Name)
         binding.ratingStar.setText(recipeData.rating)
+
+        if(prefs.getID()==recipeData.id)
+        {
+            binding.savedImg.visibility= View.VISIBLE
+        }
+        else
+        {
+            binding.savedImg.visibility= View.INVISIBLE
+        }
+
         Picasso.get().load(recipeData.imageUrl).into(binding.imgRecipe)
 
     }
