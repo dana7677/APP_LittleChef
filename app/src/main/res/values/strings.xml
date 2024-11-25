@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">APP_LittleChef</string>
+
+    <string name="searchReceipe_BTN">Search Receipes</string>
+    <string name="MyReceipes_BTN">My Receipes</string>
+    <string name="MyWeekCooking_BTN">My Week Cooking</string>
 </resources>

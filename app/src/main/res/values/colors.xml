@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="menu_card">#FF6F00</color>
+    <color name="back_text">#BFFF9100</color>
+    <color name="color_back_text">#A5A5A5</color>
+    <color name="color_stars">#FFFB00</color>
+    <color name="color_save">#FF0000</color>
+    <color name="card_invisible">#00FFFFFF</color>
 </resources>
