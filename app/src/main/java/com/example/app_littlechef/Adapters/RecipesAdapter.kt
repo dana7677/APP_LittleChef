@@ -36,7 +36,7 @@ class RecipesAdapter (private var recipeList:List<Recipe>, private val onItemCli
 
     }
 
-    //Devolver automaticamente la cantidad de simbolos en nuestro Lista del zodiaco
+    //Devolver automaticamente la cantidad de recetas en nuestro Lista de recetas
     override fun getItemCount() = recipeList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

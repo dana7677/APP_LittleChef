@@ -4,4 +4,8 @@
     <string name="searchReceipe_BTN">Search Receipes</string>
     <string name="MyReceipes_BTN">My Receipes</string>
     <string name="MyWeekCooking_BTN">My Week Cooking</string>
+
+    <string name="ingredient_String">Ingredient</string>
+    <string name="Recipe_String">Recipe</string>
+    <string name="item_String">Item</string>
 </resources>

@@ -1,8 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.APP_LittleChef" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.APP_LittleChef" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+
+        <item name="colorPrimary">@color/colorPrimaryMenu</item>
+        <item name="android:statusBarColor">@color/statusBarColor</item>
+        <item name="android:textColor">@color/textColorMenu</item>
     </style>
 
     <style name="Theme.APP_LittleChef" parent="Base.Theme.APP_LittleChef" />

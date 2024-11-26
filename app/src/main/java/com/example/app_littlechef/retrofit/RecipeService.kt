@@ -2,15 +2,21 @@ package com.example.app_littlechef.retrofit
 
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface RecipeService {
 
    //'https://dummyjson.com/recipes/search?q=Margherita'
-    @GET("recipes/search?q={name}")
+    @GET("recipes/search")
     suspend fun getRecipeName(
-        @Path("name") query:String
+       @Query("q") query:String,
+       @Query("sortBy") sortBy:String = "name",
+       @Query("order") order:String = "asc"
     ):RecipesResponse
 
+    //Esto Ordenaria
+    //@Query("sortBy") sortBy:String = "name",
+    //@Query("order") order:String = "asc"
     //'https://dummyjson.com/recipes'
     @GET("recipes")
     suspend fun getListRecipes(

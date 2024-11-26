@@ -6,13 +6,15 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.app_littlechef.APP_LittleChefApplication.Companion.prefs
+import com.example.app_littlechef.Adapters.RecipeDetailAdapter
 import com.example.app_littlechef.databinding.ActivityRecipeDetailBinding
 import com.example.app_littlechef.retrofit.Recipe
 import com.example.app_littlechef.utils.retrofitProvider
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,21 +25,24 @@ class RecipeDetailActivity : AppCompatActivity() {
     lateinit var recipeID:String
     lateinit var recipeData:Recipe
     lateinit var binding: ActivityRecipeDetailBinding
+    lateinit var adapter: RecipeDetailAdapter
+    lateinit var IngList:List<String>
+    lateinit var InstList:List<String>
+    lateinit var favIcon:MenuItem
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_recipe_detail)
 
-
         binding = ActivityRecipeDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //setContentView(R.layout.activity_selected_hero)
-
-        val resultID = intent.extras?.getInt("extra_ID")
+        //Recoger Values Intent de SearchRecipesActivity
+        val resultID = intent.extras?.getString("extra_ID")
         if(resultID!=null) {
-            recipeID=resultID.toString()
+            recipeID=resultID
             searchRecipeID(recipeID)
+
         }
 
 
@@ -46,6 +51,9 @@ class RecipeDetailActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
     }
     private fun searchRecipeID(query:String)
     {
@@ -53,16 +61,16 @@ class RecipeDetailActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             try
             {
-                //Log.d("MainActivity",dataofHeros.listHero.toString())
                 var result = service.getSingleRecipe(query)
                 CoroutineScope(Dispatchers.Main).launch {
                     if(result.id=="error")
                     {
                         //TODO MOSTRAR MENSAJE DE QUE HAY QUE HACER ALGO
-                    }else
+                    }
+                    else
                     {
                         recipeData=result
-                        setMoreDataHeroe()
+                        setMoreDataRecipe()
                     }
                 }
             }
@@ -74,8 +82,98 @@ class RecipeDetailActivity : AppCompatActivity() {
 
     }
 
-    private fun setMoreDataHeroe() {
+    private fun changeIngToInst(change:Boolean)
+    {
 
+        if(change==true)
+        {
+            adapter.setFilteredList(InstList,false)
+            binding.ingredientRecipeDetailTitle.setText(R.string.Recipe_String)
+
+            val StringPrueba = this.resources.getString(R.string.item_String)
+            val StringPass=String.format(InstList.size.toString())
+            binding.ingredientRecipeDetailNumber.setText("$StringPass $StringPrueba")
+
+        }else
+        {
+            adapter.setFilteredList(IngList,true)
+            binding.ingredientRecipeDetailTitle.setText(R.string.ingredient_String)
+
+            val StringPrueba = this.resources.getString(R.string.item_String)
+            val StringPass=String.format(IngList.size.toString())
+            binding.ingredientRecipeDetailNumber.setText("$StringPass $StringPrueba")
+        }
+
+
+
+    }
+    private fun setMoreDataRecipe()
+    {
+        if(recipeData!=null)
+        {
+            IngList=recipeData.Ingredients
+            InstList=recipeData.Instructions
+
+
+            supportActionBar?.title=recipeData.Name
+
+            //Crear un Adapter para los Ingredientes
+
+            adapter = RecipeDetailAdapter(IngList,true)
+
+
+
+            //Initial
+            Picasso.get().load(recipeData.imageUrl).into(binding.imgRecipeDetail)
+            binding.ingredientRecipeDetailTitle.setText(R.string.ingredient_String)
+            val StringPrueba = this.resources.getString(R.string.item_String)
+            val StringPass=String.format(adapter.itemCount.toString())
+            binding.ingredientRecipeDetailNumber.setText("$StringPass $StringPrueba")
+            binding.recyclerIngInst.adapter = adapter
+            binding.recyclerIngInst.layoutManager = GridLayoutManager(this, 1)
+
+            optionsBullShit()
+        }
+
+
+        //Bindeando Botones Menu IngInst
+        binding.navigationBar.setOnItemSelectedListener {
+            when(it.itemId)
+            {
+                R.id.Ingredient_btn -> {
+
+                    changeIngToInst(false)
+
+                }
+                R.id.recipe_btn -> {
+                    changeIngToInst(true)
+                }
+                else->{
+                    println("Error")
+                }
+            }
+            return@setOnItemSelectedListener true
+        }
+
+    }
+
+    private fun optionsBullShit()
+    {
+        if(prefs.getName()==recipeData.id)
+        {
+            if(prefs.getFav()==true)
+            {
+                favIcon.setIcon(R.drawable.saved_icon)
+            }
+            else
+            {
+                favIcon.setIcon(R.drawable.save_icon)
+            }
+        }
+        else
+        {
+            favIcon.setIcon(R.drawable.save_icon)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean
@@ -88,21 +186,24 @@ class RecipeDetailActivity : AppCompatActivity() {
             }
 
             R.id.save -> {
-                if (prefs.getName() == recipeData.id) {
-                    if (prefs.getFav() == true) {
-                        clearSharedPrefs()
-                        item.setIcon(R.drawable.save_icon)
+                if(recipeData!=null){
+                    if (prefs.getName() == recipeData.id) {
+                        if (prefs.getFav() == true) {
+                            clearSharedPrefs()
+                            item.setIcon(R.drawable.save_icon)
+                        } else {
+                            saveFavZodiac()
+                            item.setIcon(R.drawable.saved_icon)
+                        }
                     } else {
+
+                        clearSharedPrefs()
                         saveFavZodiac()
                         item.setIcon(R.drawable.saved_icon)
+
                     }
-                } else {
-
-                    clearSharedPrefs()
-                    saveFavZodiac()
-                    item.setIcon(R.drawable.saved_icon)
-
                 }
+
             }
         }
         return true
@@ -121,22 +222,7 @@ class RecipeDetailActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_recipe_detail,menu)
         val menuItem=menu?.findItem(R.id.save)!!
 
-            val favIcon = menu.findItem(R.id.save)
-            if(prefs.getName()==recipeData.id)
-            {
-                if(prefs.getFav()==true)
-                {
-                    favIcon.setIcon(R.drawable.saved_icon)
-                }
-                else
-                {
-                    favIcon.setIcon(R.drawable.save_icon)
-                }
-            }
-            else
-            {
-                favIcon.setIcon(R.drawable.save_icon)
-            }
+            favIcon = menu.findItem(R.id.save)
 
         return true
     }

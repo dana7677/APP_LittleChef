@@ -1,10 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecipeDetailActivity">
+    tools:context=".RecipeDetailActivity"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/imgRecipeDetail"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_weight="1"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_foreground">
+
+    </ImageView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/navigationBar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:itemPaddingBottom="0dp"
+                android:background="@color/menu_selectIngInst"
+                app:elevation="0dp"
+                app:menu="@menu/menu_recipe_change_detail"
+                app:itemIconSize="25dp"
+                app:itemIconTint="@color/black"
+                android:layout_weight="1"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_weight="1"
+                android:layout_margin="15sp"
+                android:foregroundTint="@color/IngInstList"
+                android:backgroundTint="@color/IngInstList">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:backgroundTint="@color/IngInstList">
+                    <TextView
+                        android:id="@+id/ingredient_Recipe_detail_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="28dp"
+                        android:text="Ingredients"
+                        android:layout_marginBottom="10dp"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        >
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/ingredient_Recipe_detail_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="20sp"
+                        android:textStyle="normal"
+                        android:textSize="16sp"
+                        android:text="5 items"
+                        android:layout_marginBottom="15dp"
+                        >
+
+                    </TextView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerIngInst"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:background="@color/white"/>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

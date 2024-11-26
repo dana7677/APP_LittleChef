@@ -1,7 +1,10 @@
 package com.example.app_littlechef
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -41,6 +44,7 @@ class SearchRecipesActivity : AppCompatActivity() {
         }
 
         initialSearch()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     }
     private fun initialSearch()
@@ -72,7 +76,7 @@ class SearchRecipesActivity : AppCompatActivity() {
 
     }
 
-    private fun searchSuperHeroes(query:String)
+    private fun searchRecipe(query:String)
     {
         val service = retrofitProvider.makeRetrofitService()
         CoroutineScope(Dispatchers.IO).launch {
@@ -100,16 +104,49 @@ class SearchRecipesActivity : AppCompatActivity() {
         }
 
     }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_search_recipes,menu)
+
+        val menuItem=menu?.findItem(R.id.menuSearch)!!
+        searchView= menuItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object:SearchView.OnQueryTextListener
+        {
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                return true
+            }
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if(query!=null)
+                {
+                    searchRecipe(query)
+                    return true
+                }
+                return false
+            }
+        })
+
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean
+    {
+        when(item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+
+        }
+        return true
+    }
     fun navigateToDetail(recipeSelected: Recipe) {
 
 
-        /*
-        val intent: Intent = Intent(this, selected_hero_activity::class.java)
-        intent.putExtra("extra_ID",heroSelected.numID)
-        intent.putExtra("extra_Name",heroSelected.nameHero)
-        intent.putExtra("extra_Url",heroSelected.urlImage.url)
-        startActivity(intent)
-        */
 
+        val intent: Intent = Intent(this, RecipeDetailActivity::class.java)
+        intent.putExtra("extra_ID",recipeSelected.id)
+        startActivity(intent)
     }
 }
