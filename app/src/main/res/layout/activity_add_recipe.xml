@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddRecipeActivity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="25dp"
+        android:backgroundTint="@color/white">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nameHint_Text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Name Recipe..."
+                app:counterEnabled="true"
+                app:counterMaxLength="50"
+                android:layout_weight="1"
+                android:textColorHint="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/nameTask_Text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.4">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/kcalHint_Text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="300"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="50"
+                    android:layout_weight="1"
+                    android:textColorHint="@color/black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/kcalRecipe_Text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Kcal">
+
+                </TextView>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/bar_icon">
+
+                </ImageView>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/timeHint_Text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="10"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="3"
+                    android:layout_weight="1"
+                    android:textColorHint="@color/black"
+                    android:gravity="center">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/timeRecipe_Text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Min">
+
+                </TextView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.4">
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/navigationMyRecipeBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:itemPaddingBottom="0dp"
+                    android:background="@color/menu_selectIngInst"
+                    app:elevation="0dp"
+                    app:menu="@menu/menu_recipe_change_detail"
+                    app:itemIconSize="25dp"
+                    app:itemIconTint="@color/black"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerAddIngInst"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="save">
+
+            </Button>
+        </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

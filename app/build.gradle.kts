@@ -46,6 +46,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofitGson)
     implementation(libs.picasso)
+    implementation(libs.androidx.sqlite)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)

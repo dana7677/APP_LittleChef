@@ -11,12 +11,15 @@ activity = "1.8.0"
 constraintlayout = "2.2.0"
 retrofitVersion="2.11.0"
 picassoVersion="2.8"
+sqlite = "2.4.0"
 
 [libraries]
 
 retrofit={group="com.squareup.retrofit2", name="retrofit",version.ref="retrofitVersion"}
 retrofitGson={group="com.squareup.retrofit2",name="converter-gson",version.ref ="retrofitVersion"}
 picasso={group="com.squareup.picasso",name="picasso",version.ref="picassoVersion"}
+androidx-sqlite = { group = "androidx.sqlite", name = "sqlite", version.ref = "sqlite" }
+
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

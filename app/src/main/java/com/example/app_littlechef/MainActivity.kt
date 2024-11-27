@@ -35,9 +35,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.MyReceipesBtn.setOnClickListener {
-            //toDo Bindearlo
+            val intent: Intent = Intent(this, MyRecipesActivity::class.java)
+            startActivity(intent)
         }
-        binding.MyReceipesBtn.setOnClickListener {
+        binding.MyWeekCookingBtn.setOnClickListener {
             //toDo Bindearlo
         }
     }
