@@ -147,6 +147,7 @@ class SearchRecipesActivity : AppCompatActivity() {
 
         val intent: Intent = Intent(this, RecipeDetailActivity::class.java)
         intent.putExtra("extra_ID",recipeSelected.id)
+        intent.putExtra("extra_BL",false)
         startActivity(intent)
     }
 }

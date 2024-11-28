@@ -64,11 +64,10 @@ class IngInstCreateAdapter (private var IngInstList:List<String>,var IngList: Bo
         }
         holder.buttonAccept.setOnClickListener {
             var InInst=IngInstList[position]
-            if(InInst!="")
-            {
                 onSubmitTextListener(position,holder.editText.text.toString())
-            }
+
         }
+
     }
 
     override fun getItemCount() = IngInstList.size

@@ -1,5 +1,6 @@
 package com.example.app_littlechef
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -11,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.app_littlechef.APP_LittleChefApplication.Companion.prefs
 import com.example.app_littlechef.Adapters.RecipeDetailAdapter
+import com.example.app_littlechef.data.dataTable.providers.RecipeDAO
 import com.example.app_littlechef.databinding.ActivityRecipeDetailBinding
 import com.example.app_littlechef.retrofit.Recipe
 import com.example.app_littlechef.utils.retrofitProvider
@@ -29,6 +31,7 @@ class RecipeDetailActivity : AppCompatActivity() {
     lateinit var IngList:List<String>
     lateinit var InstList:List<String>
     lateinit var favIcon:MenuItem
+    var bolMyRecipes:Boolean=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -39,9 +42,26 @@ class RecipeDetailActivity : AppCompatActivity() {
 
         //Recoger Values Intent de SearchRecipesActivity
         val resultID = intent.extras?.getString("extra_ID")
+        val resultLongId=intent.extras?.getLong("extra_LONG")
+        val resultBol=intent.extras?.getBoolean("extra_BL")
+        if(resultBol!=null)
+        {
+            bolMyRecipes=resultBol
+        }
         if(resultID!=null) {
-            recipeID=resultID
-            searchRecipeID(recipeID)
+            if(resultBol==true)
+            {
+                if(resultLongId!=null)
+                {
+                    getMyRecipeInfo(resultLongId)
+                }
+
+            }else
+            {
+                recipeID=resultID
+                searchRecipeID(recipeID)
+            }
+
 
         }
 
@@ -53,6 +73,36 @@ class RecipeDetailActivity : AppCompatActivity() {
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+    }
+    private fun getMyRecipeInfo(string:Long)
+    {
+        var recipeDao= RecipeDAO(this)
+        var newRecipe = recipeDao.findByID(string)
+
+        if(newRecipe!=null)
+        {
+            recipeData=Recipe("",newRecipe.name,convertStringToList(newRecipe.Ingredients),
+                convertStringToList(newRecipe.Instructions),
+                newRecipe.TimeToCook,newRecipe.TimeToCook,
+                "servings","easy",
+                "default",newRecipe.KCalories,
+                convertStringToList(newRecipe.Ingredients),
+                "1","noImgUrl","5","5",convertStringToList(newRecipe.Ingredients))
+
+
+            //SeteamosLosValores
+            setMoreDataRecipe()
+        }
+
+
+    }
+    private fun convertStringToList(listInsIng:String):List<String>
+    {
+
+        val ListNew=listInsIng.split("/")
+
+        return ListNew
 
     }
     private fun searchRecipeID(query:String)
@@ -124,7 +174,10 @@ class RecipeDetailActivity : AppCompatActivity() {
 
 
             //Initial
-            Picasso.get().load(recipeData.imageUrl).into(binding.imgRecipeDetail)
+            if(recipeData.imageUrl!="noImgUrl")
+            {
+                Picasso.get().load(recipeData.imageUrl).into(binding.imgRecipeDetail)
+            }
             binding.ingredientRecipeDetailTitle.setText(R.string.ingredient_String)
             val StringPrueba = this.resources.getString(R.string.item_String)
             val StringPass=String.format(adapter.itemCount.toString())
@@ -132,7 +185,10 @@ class RecipeDetailActivity : AppCompatActivity() {
             binding.recyclerIngInst.adapter = adapter
             binding.recyclerIngInst.layoutManager = GridLayoutManager(this, 1)
 
-            optionsBullShit()
+            if(bolMyRecipes==false)
+            {
+                optionsBullShit()
+            }
         }
 
 

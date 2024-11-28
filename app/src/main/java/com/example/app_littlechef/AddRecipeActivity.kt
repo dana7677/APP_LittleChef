@@ -1,12 +1,15 @@
 package com.example.app_littlechef
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.app_littlechef.Adapters.IngInstCreateAdapter
+import com.example.app_littlechef.data.dataTable.Recipe
+import com.example.app_littlechef.data.dataTable.providers.RecipeDAO
 import com.example.app_littlechef.databinding.ActivityAddRecipeBinding
 
 class AddRecipeActivity : AppCompatActivity() {
@@ -45,6 +48,10 @@ class AddRecipeActivity : AppCompatActivity() {
 
         bindingMainActivity.recyclerAddIngInst.adapter=adapter
         bindingMainActivity.recyclerAddIngInst.layoutManager = GridLayoutManager(this,1)
+
+        bindingMainActivity.addRecipeBtn.setOnClickListener {
+            onPressedAddButton()
+        }
 
         //addItemList(IngOrInST)
 
@@ -105,13 +112,17 @@ class AddRecipeActivity : AppCompatActivity() {
     //Cuado clickas el boton de guardar para cambiar los values
     fun saveValueText(position: Int,txtValue:String)
     {
+
+        println(txtValue)
         if(IngOrInST==true)
         {
             IngList[position]=txtValue
+            addItemList(IngOrInST)
         }
         else
         {
             InstList[position]=txtValue
+            addItemList(IngOrInST)
         }
     }
     fun newIngInstItem(position:Int,string:String) {
@@ -150,5 +161,51 @@ class AddRecipeActivity : AppCompatActivity() {
 
         }
 
+    }
+
+
+
+
+    private fun onPressedAddButton()
+    {
+
+
+        if(bindingMainActivity.timeRecipeText.getText().toString().toIntOrNull()==null||bindingMainActivity.kcalRecipeText.getText().toString().toIntOrNull()==null)
+        {
+
+            Toast.makeText(this,"Use numbers for Kcal and Min", Toast.LENGTH_SHORT).show()
+
+        }
+        else
+        {
+            val recipeDAO = RecipeDAO(this)
+
+            //Adding Value to the DT
+            recipeDAO.insert(Recipe(-1, bindingMainActivity.nameTaskText.getText().toString(),
+                "Example",
+                convertListOnUniqueString(IngList),convertListOnUniqueString(InstList),
+                bindingMainActivity.timeRecipeText.getText().toString(),
+                bindingMainActivity.kcalRecipeText.getText().toString(),false
+            ))
+
+            finish()
+        }
+
+    }
+
+    private fun convertListOnUniqueString(IngOrInstList:MutableList<String>,):String
+    {
+
+        var StringList:String=""
+        for (x in IngOrInstList) {
+
+            if(x!="New Ingredient"&& x!="New Instruction")
+            {
+                StringList=StringList+x+"/"
+            }
+
+        }
+
+        return StringList
     }
 }

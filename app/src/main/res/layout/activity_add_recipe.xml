@@ -41,7 +41,7 @@
                     android:id="@+id/kcalHint_Text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="300"
+                    android:hint="x.."
                     app:counterEnabled="true"
                     app:counterMaxLength="50"
                     android:layout_weight="1"
@@ -72,7 +72,7 @@
                     android:id="@+id/timeHint_Text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="10"
+                    android:hint="x.."
                     app:counterEnabled="true"
                     app:counterMaxLength="3"
                     android:layout_weight="1"
@@ -123,6 +123,7 @@
                     android:id="@+id/recyclerAddIngInst"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -130,8 +131,9 @@
 
 
             <Button
+                android:id="@+id/addRecipe_Btn"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="100dp"
                 android:layout_weight="1"
                 android:text="save">
 

@@ -31,7 +31,7 @@ class RecipeDAO (val context: Context)
 
     private fun getProjection(task:Recipe.Companion):Array<String>
     {
-        val projection = arrayOf(Recipe.COLUMN_ID, Recipe.COLUMN_NAME,Recipe.COLUMN_DESCRIPTION,Recipe.COLUMN_INGREDIENTS,Recipe.COLUMN_INGREDIENTS,Recipe.COLUMN_TIMETOCOOK,Recipe.COLUMN_KCALORIES, Recipe.COLUMN_DONE)
+        val projection = arrayOf(Recipe.COLUMN_ID, Recipe.COLUMN_NAME,Recipe.COLUMN_DESCRIPTION,Recipe.COLUMN_INGREDIENTS,Recipe.COLUMN_INSTRUCTIONS,Recipe.COLUMN_TIMETOCOOK,Recipe.COLUMN_KCALORIES, Recipe.COLUMN_DONE)
 
         return projection
     }
@@ -120,6 +120,40 @@ class RecipeDAO (val context: Context)
                 Recipe.TABLE_NAME,
                 projection,
                 "${Recipe.COLUMN_ID}=$id",
+                null,
+                null,
+                null,
+                null
+            )
+            if (cursor.moveToNext()) {
+
+                val task=returnTask(cursor)
+
+                return task
+            }
+        }catch (e:Exception)
+        {
+            Log.e("DB",e.stackTraceToString())
+        }
+        finally {
+            close()
+        }
+
+        return null
+
+    }
+
+    fun findByName(name:String):Recipe?
+    {
+        open()
+
+        val projection = getProjection(Recipe)
+
+        try {
+            val cursor = db.query(
+                Recipe.TABLE_NAME,
+                projection,
+                "${Recipe.COLUMN_NAME}=$name",
                 null,
                 null,
                 null,

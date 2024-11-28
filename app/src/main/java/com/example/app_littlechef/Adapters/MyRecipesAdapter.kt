@@ -68,10 +68,6 @@ class MyRecipeViewHolder(private val binding: ViewRecipeItemBinding) :
 
         binding.ratingStar.visibility=View.INVISIBLE
 
-       // binding.ratingStar.setText(recipeData.rating)
-
-
-        //Picasso.get().load(recipeData.imageUrl).into(binding.imgRecipe)
 
     }
 }
