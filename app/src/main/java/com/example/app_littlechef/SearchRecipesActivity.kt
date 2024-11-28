@@ -141,6 +141,11 @@ class SearchRecipesActivity : AppCompatActivity() {
         }
         return true
     }
+
+    override fun onResume() {
+        adapter.notifyDataSetChanged()
+        super.onResume()
+    }
     fun navigateToDetail(recipeSelected: Recipe) {
 
 

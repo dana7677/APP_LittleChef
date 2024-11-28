@@ -36,6 +36,7 @@
                     android:backgroundTint="@color/card_invisible">
 
                     <ImageView
+                        android:id="@+id/ratingImg_star"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/star_svgrepo_com"

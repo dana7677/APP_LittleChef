@@ -91,13 +91,13 @@ class ViewHolderCreateIngInst(private val binding: ViewMyRecipeIngInstBinding) :
         {
             if(IngList==true)
             {
-                binding.nameHintText.setHint("New Ingredient")
-                binding.nameIngInstText.setText("New Ingredient")
+                binding.nameHintText.setHint(R.string.newIngredient)
+                binding.nameIngInstText.setText(R.string.newIngredient)
             }
             else
             {
-                binding.nameHintText.setHint("New Instruction")
-                binding.nameIngInstText.setText("New Instruction")
+                binding.nameHintText.setHint(R.string.newInstruction)
+                binding.nameIngInstText.setText(R.string.newInstruction)
             }
         }
 

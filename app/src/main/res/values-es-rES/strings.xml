@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Joven Chef</string>
+    <string name="searchReceipe_BTN">Buscar Recetas</string>
+    <string name="MyReceipes_BTN">Mis Recetas</string>
+    <string name="MyWeekCooking_BTN">Mi semana cocinando</string>
+    <string name="nameRecipeTxt">Nombre receta</string>
+    <string name="descriptionRecipeTxt">Descripcion de la receta</string>
+    <string name="Kcal_txt">Kcal</string>
+    <string name="Min_txt">Min</string>
+    <string name="ingredient_String">Ingrediente</string>
+    <string name="Recipe_String">Receta</string>
+    <string name="item_String">Elemento</string>
+    <string name="newIngredient">Nuevo Ingrediente</string>
+    <string name="newInstruction">Nueva Instrucción</string>
+</resources>

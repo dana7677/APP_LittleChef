@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -80,6 +81,7 @@ class RecipeDetailActivity : AppCompatActivity() {
         var recipeDao= RecipeDAO(this)
         var newRecipe = recipeDao.findByID(string)
 
+
         if(newRecipe!=null)
         {
             recipeData=Recipe("",newRecipe.name,convertStringToList(newRecipe.Ingredients),
@@ -88,7 +90,7 @@ class RecipeDetailActivity : AppCompatActivity() {
                 "servings","easy",
                 "default",newRecipe.KCalories,
                 convertStringToList(newRecipe.Ingredients),
-                "1","noImgUrl","5","5",convertStringToList(newRecipe.Ingredients))
+                "1",newRecipe.ImgUri,"5","5",convertStringToList(newRecipe.Ingredients))
 
 
             //SeteamosLosValores
@@ -174,7 +176,7 @@ class RecipeDetailActivity : AppCompatActivity() {
 
 
             //Initial
-            if(recipeData.imageUrl!="noImgUrl")
+            if(recipeData.imageUrl!="noImgUrl" && recipeData.imageUrl!="")
             {
                 Picasso.get().load(recipeData.imageUrl).into(binding.imgRecipeDetail)
             }
@@ -188,6 +190,14 @@ class RecipeDetailActivity : AppCompatActivity() {
             if(bolMyRecipes==false)
             {
                 optionsBullShit()
+            }
+            else
+            {
+                if(recipeData.imageUrl!="" && recipeData.imageUrl!="noImgUrl")
+                {
+                    binding.imgRecipeDetail.setImageURI(recipeData.imageUrl.toUri())
+                }
+
             }
         }
 

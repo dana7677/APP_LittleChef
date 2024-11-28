@@ -10,7 +10,7 @@ class DataBaseManager(context: Context): SQLiteOpenHelper(context,
     DATABASE_VERSION
 ) {
     companion object {
-        const val DATABASE_VERSION = 6
+        const val DATABASE_VERSION = 8
         const val DATABASE_NAME = "DTtoDoList.db"
 
         private const val SQL_CREATE_TABLE =
@@ -22,6 +22,7 @@ class DataBaseManager(context: Context): SQLiteOpenHelper(context,
                     "${Recipe.COLUMN_INSTRUCTIONS} TEXT," +
                     "${Recipe.COLUMN_TIMETOCOOK} TEXT," +
                     "${Recipe.COLUMN_KCALORIES} TEXT," +
+                    "${Recipe.COLUMN_IMGURI} TEXT," +
                     "${Recipe.COLUMN_DONE} INTEGER)"
 
         private const val SQL_DELETE_TABLE ="DROP TABLE IF EXISTS Task"

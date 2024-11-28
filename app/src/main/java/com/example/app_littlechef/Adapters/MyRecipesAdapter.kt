@@ -3,6 +3,7 @@ package com.example.app_littlechef.Adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_littlechef.APP_LittleChefApplication
 import com.example.app_littlechef.databinding.ViewRecipeItemBinding
@@ -66,6 +67,11 @@ class MyRecipeViewHolder(private val binding: ViewRecipeItemBinding) :
         binding.calories.setText("${recipeData.KCalories} Kcal")
         binding.recipeName.setText(recipeData.name)
 
+        if(recipeData.ImgUri!="")
+        {
+            binding.imgRecipe.setImageURI(recipeData.ImgUri.toUri())
+        }
+        binding.ratingImgStar.visibility=View.INVISIBLE
         binding.ratingStar.visibility=View.INVISIBLE
 
 

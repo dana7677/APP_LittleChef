@@ -1,19 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">LittleChef</string>
-
     <string name="searchReceipe_BTN">Search Receipes</string>
     <string name="MyReceipes_BTN">My Receipes</string>
     <string name="MyWeekCooking_BTN">My Week Cooking</string>
-
     <string name="nameRecipeTxt">Name Recipe...</string>
     <string name="descriptionRecipeTxt">Description Recipe...</string>
     <string name="Kcal_txt">Kcal</string>
     <string name="Min_txt">Min</string>
-
     <string name="ingredient_String">Ingredient</string>
     <string name="Recipe_String">Recipe</string>
     <string name="item_String">Item</string>
-
     <string name="newIngredient">New Ingredient</string>
     <string name="newInstruction">New Instruction</string>
 </resources>

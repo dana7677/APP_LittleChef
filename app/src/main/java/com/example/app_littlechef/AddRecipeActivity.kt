@@ -1,8 +1,14 @@
 package com.example.app_littlechef
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -18,7 +24,22 @@ class AddRecipeActivity : AppCompatActivity() {
     lateinit var adapter: IngInstCreateAdapter
     lateinit var IngList:MutableList<String>
     lateinit var InstList:MutableList<String>
+    var uriImg:String=""
     var IngOrInST:Boolean=true
+
+    val pickMedia=registerForActivityResult(ActivityResultContracts.PickVisualMedia()){ uri->
+        if(uri!=null)
+        {
+            bindingMainActivity.MyReceipeNewAddImgBtn.setImageURI(uri)
+            uriImg=uri.toString()
+            Log.i("popo","popoporr")
+        }
+        else
+        {
+            Log.i("popo","popoporr")
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -28,6 +49,14 @@ class AddRecipeActivity : AppCompatActivity() {
 
         bindingMainActivity = ActivityAddRecipeBinding.inflate(layoutInflater)
         setContentView(bindingMainActivity.root)
+
+
+        //btn Imagen
+        bindingMainActivity.MyReceipeNewAddImgBtn.setOnClickListener{
+            if(ActivityResultContracts.PickVisualMedia.isPhotoPickerAvailable(this))
+                pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+
+        }
 
 
         adapter = IngInstCreateAdapter(IngList,IngOrInST,{
@@ -91,6 +120,7 @@ class AddRecipeActivity : AppCompatActivity() {
             }
             return@setOnItemSelectedListener true
         }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     fun addItemList(ingOrInst:Boolean)
@@ -129,7 +159,7 @@ class AddRecipeActivity : AppCompatActivity() {
 
 
         println(string)
-    if(string!="New Ingredient")
+    if(string!=R.string.newIngredient.toString())
     {
         addItemList(IngOrInST)
     }
@@ -164,11 +194,10 @@ class AddRecipeActivity : AppCompatActivity() {
     }
 
 
-
-
     private fun onPressedAddButton()
     {
 
+        var uripass=""
 
         if(bindingMainActivity.timeRecipeText.getText().toString().toIntOrNull()==null||bindingMainActivity.kcalRecipeText.getText().toString().toIntOrNull()==null)
         {
@@ -185,11 +214,12 @@ class AddRecipeActivity : AppCompatActivity() {
                 "Example",
                 convertListOnUniqueString(IngList),convertListOnUniqueString(InstList),
                 bindingMainActivity.timeRecipeText.getText().toString(),
-                bindingMainActivity.kcalRecipeText.getText().toString(),false
+                bindingMainActivity.kcalRecipeText.getText().toString(),uriImg,false
             ))
 
             finish()
         }
+
 
     }
 
@@ -199,7 +229,7 @@ class AddRecipeActivity : AppCompatActivity() {
         var StringList:String=""
         for (x in IngOrInstList) {
 
-            if(x!="New Ingredient"&& x!="New Instruction")
+            if(x!=R.string.newIngredient.toString()&& x!=R.string.newInstruction.toString())
             {
                 StringList=StringList+x+"/"
             }
@@ -207,5 +237,16 @@ class AddRecipeActivity : AppCompatActivity() {
         }
 
         return StringList
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean
+    {
+
+        when(item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return true
     }
 }

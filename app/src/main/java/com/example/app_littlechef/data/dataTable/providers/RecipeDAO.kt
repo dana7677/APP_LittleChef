@@ -23,6 +23,7 @@ class RecipeDAO (val context: Context)
             put(Recipe.COLUMN_INSTRUCTIONS,taskpass.Instructions)
             put(Recipe.COLUMN_TIMETOCOOK,taskpass.TimeToCook)
             put(Recipe.COLUMN_KCALORIES,taskpass.KCalories)
+            put(Recipe.COLUMN_IMGURI,taskpass.ImgUri)
             put(Recipe.COLUMN_DONE, taskpass.done)
 
         }
@@ -31,7 +32,7 @@ class RecipeDAO (val context: Context)
 
     private fun getProjection(task:Recipe.Companion):Array<String>
     {
-        val projection = arrayOf(Recipe.COLUMN_ID, Recipe.COLUMN_NAME,Recipe.COLUMN_DESCRIPTION,Recipe.COLUMN_INGREDIENTS,Recipe.COLUMN_INSTRUCTIONS,Recipe.COLUMN_TIMETOCOOK,Recipe.COLUMN_KCALORIES, Recipe.COLUMN_DONE)
+        val projection = arrayOf(Recipe.COLUMN_ID, Recipe.COLUMN_NAME,Recipe.COLUMN_DESCRIPTION,Recipe.COLUMN_INGREDIENTS,Recipe.COLUMN_INSTRUCTIONS,Recipe.COLUMN_TIMETOCOOK,Recipe.COLUMN_KCALORIES,Recipe.COLUMN_IMGURI, Recipe.COLUMN_DONE)
 
         return projection
     }
@@ -45,9 +46,10 @@ class RecipeDAO (val context: Context)
         val instructions = getcursor.getString(getcursor.getColumnIndexOrThrow(Recipe.COLUMN_INSTRUCTIONS))
         val timeToCook = getcursor.getString(getcursor.getColumnIndexOrThrow(Recipe.COLUMN_TIMETOCOOK))
         val kCalories = getcursor.getString(getcursor.getColumnIndexOrThrow(Recipe.COLUMN_KCALORIES))
+        val imgUri = getcursor.getString(getcursor.getColumnIndexOrThrow(Recipe.COLUMN_IMGURI))
         val done = getcursor.getInt(getcursor.getColumnIndexOrThrow(Recipe.COLUMN_DONE)) != 0
 
-        return Recipe(id,name,descript,ingredients,instructions,timeToCook,kCalories,done)
+        return Recipe(id,name,descript,ingredients,instructions,timeToCook,kCalories,imgUri,done)
     }
 
     fun open()
