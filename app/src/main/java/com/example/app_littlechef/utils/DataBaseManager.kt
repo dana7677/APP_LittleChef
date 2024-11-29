@@ -10,7 +10,7 @@ class DataBaseManager(context: Context): SQLiteOpenHelper(context,
     DATABASE_VERSION
 ) {
     companion object {
-        const val DATABASE_VERSION = 8
+        const val DATABASE_VERSION = 9
         const val DATABASE_NAME = "DTtoDoList.db"
 
         private const val SQL_CREATE_TABLE =

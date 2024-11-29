@@ -30,6 +30,9 @@ class AddRecipeActivity : AppCompatActivity() {
     val pickMedia=registerForActivityResult(ActivityResultContracts.PickVisualMedia()){ uri->
         if(uri!=null)
         {
+
+            val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
+            this.contentResolver.takePersistableUriPermission(uri, flag)
             bindingMainActivity.MyReceipeNewAddImgBtn.setImageURI(uri)
             uriImg=uri.toString()
             Log.i("popo","popoporr")
@@ -173,6 +176,7 @@ class AddRecipeActivity : AppCompatActivity() {
         {
 
             IngList.removeAt(position)
+            adapter.updateItems(IngList,IngOrInST)
 
             if(IngList.size==0)
             {
@@ -183,6 +187,7 @@ class AddRecipeActivity : AppCompatActivity() {
         else
         {
             InstList.removeAt(position)
+            adapter.updateItems(IngList,IngOrInST)
 
             if(InstList.size==0)
             {

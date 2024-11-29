@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_littlechef.APP_LittleChefApplication
 import com.example.app_littlechef.R
@@ -47,12 +48,15 @@ class IngInstCreateAdapter (private var IngInstList:List<String>,var IngList: Bo
 
         holder.bind(IngInstList[position],IngList,position)
         holder.button.setOnClickListener {
-            var InInst=IngInstList[position]
-            if(InInst=="")
-            {
                 onItemClickListener(position)
-            }
         }
+
+        //Para cambiar el boton de guardado por esta escucha
+        /*
+        holder.editText.addTextChangedListener {
+
+        }
+        */
 
         holder.editText.setOnClickListener {
             var InInst=IngInstList[position]
@@ -63,7 +67,6 @@ class IngInstCreateAdapter (private var IngInstList:List<String>,var IngList: Bo
             }
         }
         holder.buttonAccept.setOnClickListener {
-            var InInst=IngInstList[position]
                 onSubmitTextListener(position,holder.editText.text.toString())
 
         }
