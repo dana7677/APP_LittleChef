@@ -66,10 +66,19 @@ class IngInstCreateAdapter (private var IngInstList:List<String>,var IngList: Bo
                 onEditextClickListener(position,holder.editText.text.toString())
             }
         }
+
         holder.buttonAccept.setOnClickListener {
                 onSubmitTextListener(position,holder.editText.text.toString())
 
         }
+
+
+        //Para cambiar el boton de guardado por esta escucha
+        /*
+        holder.editText.addTextChangedListener {
+
+        }
+        */
 
     }
 
