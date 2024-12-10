@@ -40,15 +40,6 @@
               android:text="@string/MyReceipes_BTN">
 
           </Button>
-          <Button
-              android:id="@+id/MyWeekCooking_btn"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_weight="1"
-              android:layout_margin="5dp"
-              android:text="@string/MyWeekCooking_BTN">
-
-          </Button>
 
       </LinearLayout>
 

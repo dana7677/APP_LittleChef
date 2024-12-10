@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
     }
     public fun setClickers()
     {
-
         binding.searchReceipeBtn.setOnClickListener {
             val intent: Intent = Intent(this, SearchRecipesActivity::class.java)
             startActivity(intent)
@@ -38,8 +37,6 @@ class MainActivity : AppCompatActivity() {
             val intent: Intent = Intent(this, MyRecipesActivity::class.java)
             startActivity(intent)
         }
-        binding.MyWeekCookingBtn.setOnClickListener {
-            //toDo Bindearlo
-        }
+
     }
 }
